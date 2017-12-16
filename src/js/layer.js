@@ -138,7 +138,7 @@
             // style: 'border:none; background-color:#78BA32; color:#fff;',
             config.top = config.hasOwnProperty('top') ? config.top : 100;
             config.style = config.style || '';
-            config.style += ' top:' + ( doc.body.scrollTop + config.top) + 'px';
+            config.style += ' top:' + (doc.body.scrollTop + config.top) + 'px';
         }
 
         /**
@@ -182,7 +182,7 @@
 
             + '<div class="layui-m-layermain" ' + (!config.fixed ? 'style="position:static;"' : '') + '>'
             + '<div class="layui-m-layersection">'
-            + '<div class="layui-m-layerchild ' + (config.skin ? 'layui-m-layer-' + config.skin + ' ' : '') + (config.className ? config.className : '') + ' ' + (config.anim ? 'layui-m-anim-' + config.anim : '') + '" ' + ( config.style ? 'style="' + config.style + '"' : '' ) + '>'
+            + '<div class="layui-m-layerchild ' + (config.skin ? 'layui-m-layer-' + config.skin + ' ' : '') + (config.className ? config.className : '') + ' ' + (config.anim ? 'layui-m-anim-' + config.anim : '') + '" ' + (config.style ? 'style="' + config.style + '"' : '') + '>'
             + title
             + '<div class="layui-m-layercont">' + config.content + '</div>'
             + button
@@ -190,18 +190,29 @@
             + '</div>'
             + '</div>';
 
+
+        /**
+         * config.type ：默认0 （0表示信息框，1表示页面层，2表示加载层）
+         */
+        // 0:信息框 或者加载层 则关闭
         if (!config.type || config.type === 2) {
-            var dialogs = doc[claname](classs[0] + config.type), dialen = dialogs.length;
+            var dialogs = doc[claname](classs[0] + config.type),
+                dialen = dialogs.length;
             if (dialen >= 1) {
+                // ???
                 layer.close(dialogs[0].getAttribute('index'))
             }
         }
 
+        // 添加到页面，如果能再次获取到，则表示 已经加载成功
         document.body.appendChild(layerbox);
         var elem = that.elem = S('#' + that.id)[0];
+
+        // 加载成功执行
         config.success && config.success(elem);
 
         that.index = index++;
+
         that.action(config, elem);
     };
 
@@ -218,17 +229,28 @@
 
         //确认取消
         var btn = function () {
+            // btn上面有两种状态
+            // 通常来说0 代表取消
+            // 1代表确认
             var type = this.getAttribute('type');
             if (type == 0) {
+                /**
+                 * no
+                 * 类型：Function
+                 * 点取消按钮触发的回调函数
+                 */
                 config.no && config.no();
                 layer.close(that.index);
             } else {
                 config.yes ? config.yes(that.index) : layer.close(that.index);
             }
         };
+
         if (config.btn) {
-            var btns = elem[claname]('layui-m-layerbtn')[0].children, btnlen = btns.length;
+            var btns = elem[claname]('layui-m-layerbtn')[0].children,
+                btnlen = btns.length;
             for (var ii = 0; ii < btnlen; ii++) {
+                // 添加点击事件
                 ready.touch(btns[ii], btn);
             }
         }
@@ -237,6 +259,11 @@
         if (config.shade && config.shadeClose) {
             var shade = elem[claname]('layui-m-layershade')[0];
             ready.touch(shade, function () {
+                /**
+                 * end
+                 * 类型：Function
+                 * 层彻底销毁后的回调函数
+                 */
                 layer.close(that.index, config.end);
             });
         }
@@ -260,6 +287,7 @@
             ibox.innerHTML = '';
             doc.body.removeChild(ibox);
             clearTimeout(ready.timer[index]);
+
             delete ready.timer[index];
             typeof ready.end[index] === 'function' && ready.end[index]();
             delete ready.end[index];
