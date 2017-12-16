@@ -1,0 +1,23 @@
+{
+  "name": "gulpdeng",
+  "version": "1.0.0",
+  "description": "项目gulp 常用方式",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dengzhiqiang/gulpDeng.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.3.2"
+  },
+  "bugs": {
+    "url": "https://github.com/dengzhiqiang/gulpDeng/issues"
+  },
+  "homepage": "https://github.com/dengzhiqiang/gulpDeng#readme"
+}
