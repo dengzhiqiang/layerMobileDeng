@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 12px;
+}
+
+/*没有按钮，没有标题，仅仅显示内容
+会自动关闭的提示框*/
+.layerMobie-tip {
+    position: fixed;
+    margin:0 auto;
+    max-width: 90%;
+    padding: 10px 20px;
+    background: rgba(0,0,0,.6);
+
+}
