@@ -9,14 +9,18 @@
     <link rel="stylesheet" href="css/layerMobile.css">
 </head>
 <body>
-
-
-
+<button class="tip">1.提示框</button>
+<button class="tip2">2.提示框</button>
 
 
 <script src="./js/layerMobile.js"></script>
 <script>
-
+    document.querySelector('.tip').onclick = function () {
+        layerMobile.show({time: 4});
+    }
+    document.querySelector('.tip2').onclick = function () {
+        layerMobile.show();
+    }
 </script>
 </body>
 </html>
