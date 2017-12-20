@@ -1,10 +1,15 @@
 ;(function (win) {
     /**
+     * 用来标记当前的弹出，是哪个弹出层
+     * @type {number}
+     */
+    var index = 0;
+    /**
      * 模板
      * @type {{tip: tip}}
      */
     var tpl = {
-        tip: function (content) {
+        tip: function (content, index) {
             /**
              * 没有按钮
              * 没有标题
@@ -21,7 +26,7 @@
 
             var layerMobile = document.createElement('div');
 
-            layerMobile.classList.add('layerMobie', 'layerMobie-tip');
+            layerMobile.classList.add('layerMobie', 'layerMobie-' + index, 'layerMobie-tip','layerMobie-show');
             layerMobile.innerHTML = strTip;
 
             document.body.appendChild(layerMobile);
@@ -60,26 +65,34 @@
         }
 
         this.config = cloneDefaultOptions;
+
+        // 每次新添加一个弹出层，每次标记序号，并且这个序号是递增的
+        this.index = index;
+        index++;
+
+
+        console.log('=配置信息！==========================');
         console.log(this.config);
 
     };
-    Layer.prototype.action = function () {
-        // 自动关闭
 
+
+    /**
+     * 关闭弹出层
+     */
+    Layer.prototype.close = function (index) {
 
     };
 
+    /**
+     * 对外的提示弹出层方法
+     */
+    Layer.prototype.tip = function () {
 
-    window.layerMobile = {
-        show: function (options) {
-            return new Layer(options || {});
-        },
-        close: function () {
-            // 每次点击出现的弹出框都添加一个索引
-            // 当要关闭的时候，先关闭最后出现的那个:未做
-
-        }
+        tpl.tip(this.config.content, this.index);
     };
 
+
+    window.Layer = Layer;
 
 })(window);
