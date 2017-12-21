@@ -18,6 +18,7 @@
              */
 
             var strTip = "<div class='layerMobile-main'>"
+                + "<div class='layerMobile-shadow'></div>"
                 + "<div class='layerMobie-con'>"
                 + content
                 + "</div>"
@@ -26,10 +27,13 @@
 
             var layerMobile = document.createElement('div');
 
-            layerMobile.classList.add('layerMobie', 'layerMobie-' + index, 'layerMobie-tip','layerMobie-show');
+            layerMobile.classList.add('layerMobie', 'layerMobie-' + index, 'layerMobie-tip', 'layerMobie-show');
             layerMobile.innerHTML = strTip;
 
             document.body.appendChild(layerMobile);
+        },
+        alert: function (content, index) {
+
         }
     };
 
@@ -81,15 +85,31 @@
      * 关闭弹出层
      */
     Layer.prototype.close = function (index) {
-
+        // 淡出的方式关闭，未完成
+        var currentLayer = document.querySelector('.layerMobie-' + index);
+        document.body.removeChild(currentLayer);
     };
 
     /**
      * 对外的提示弹出层方法
      */
     Layer.prototype.tip = function () {
+        var that = this;
 
         tpl.tip(this.config.content, this.index);
+
+        var timer = setTimeout(function () {
+            that.close(that.index);
+            clearTimeout(timer);
+        }, that.config.time * 1000)
+    };
+
+    /**
+     * 类似alert的弹出框
+     * @type {Layer}
+     */
+    Layer.prototype.alert = function () {
+
     };
 
 

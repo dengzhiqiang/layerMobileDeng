@@ -16,10 +16,10 @@
 <script src="./js/layerMobile.js"></script>
 <script>
     document.querySelector('.tip').onclick = function () {
-        new Layer({time: 4, content: '我是弹出层！'}).tip();
+        new Layer({time: 3, content: '提示框 3s后关闭！'}).tip();
     };
     document.querySelector('.tip2').onclick = function () {
-
+        new Layer({time: 6, content: '提示框 6s后关闭！'}).tip();
     }
 </script>
 </body>
